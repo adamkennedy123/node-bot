@@ -47,18 +47,14 @@ client.initialize();
 // Endpoint untuk ambil QR Code
 app.get('/qr', (req, res) => {
     if (isReady) {
-        return res.send('<p>Bot sudah terhubung ke WhatsApp.</p>');
+        return res.json({ status: 'ready' });
     } else if (qrCodeData) {
-        return res.send(`
-            <div style="text-align: center;">
-                <h2>Scan QR Code</h2>
-                <img src="${qrCodeData}" />
-            </div>
-        `);
+        return res.json({ status: 'scan', qr: qrCodeData }); // base64 PNG
     } else {
-        return res.send('<p>Menunggu QR Code...</p>');
+        return res.json({ status: 'waiting' });
     }
 });
+
 
 // Endpoint untuk kirim pesan
 app.post('/kirim', async (req, res) => {
