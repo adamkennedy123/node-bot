@@ -6,3 +6,16 @@ xdg-utils fonts-liberation
 for pkg in libgbm-dev libgtk-3-0 libxss1 libasound2 libnss3 libatk1.0-0 libatk-bridge2.0-0 libcups2 libxcomposite1 libxrandr2 libxdamage1 libx11-xcb1 libxcb-dri3-0 libdrm2 libxshmfence1 xdg-utils fonts-liberation; do
     dpkg -s "$pkg" &> /dev/null && echo "✅ $pkg TERINSTALL" || echo "❌ $pkg BELUM TERINSTALL"
 done
+
+
+Buatkan saya bot WhatsApp menggunakan library `whatsapp-web.js` (Node.js), dengan fitur:
+
+1. QR Code bisa ditampilkan di browser (frontend dengan JavaScript atau HTML sederhana) dari server host lokal atau VPS.
+2. Bot harus bisa menerima perintah kirim pesan via HTTP endpoint (misalnya POST ke `/kirim`).
+3. Endpoint `/qr` harus mengembalikan data QR Code dalam bentuk base64 (tanpa HTML), agar bisa dipakai frontend.
+4. Backend bot harus menggunakan Express.js dan berjalan secara independen dari Laravel, tapi tetap **siap diintegrasikan** dengan Laravel via API.
+5. Sertakan instruksi agar Laravel bisa memanggil bot ini (misalnya dengan `Http::post()`).
+6. Tambahkan petunjuk deployment di server (VPS) agar Laravel dan bot ini bisa berjalan bersamaan:
+   - Gunakan port yang berbeda.
+   - Bisa diatur pakai Nginx jika perlu.
+7. Tidak perlu GUI admin, cukup API dan QR preview frontend
