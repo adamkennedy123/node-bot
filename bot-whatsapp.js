@@ -1,7 +1,7 @@
 const { Client, LocalAuth } = require('whatsapp-web.js');
 const express = require('express');
 const cors = require('cors');
-const fs = require('fs').promises; // pakai promises untuk async
+const fs = require('fs').promises;
 const qrcode = require('qrcode');
 const path = require('path');
 
@@ -12,7 +12,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Inisialisasi client WhatsApp
+let qrBase64 = null; // tempat simpan base64 QR
+
 const client = new Client({
     authStrategy: new LocalAuth(),
     puppeteer: {
@@ -31,16 +32,17 @@ const client = new Client({
 });
 
 client.on('qr', async (qr) => {
-    console.log('📱 Scan QR dengan WhatsApp...');
-    await qrcode.toFile('./qr.png', qr);
+    console.log('📱 QR baru diterima...');
+    qrBase64 = await qrcode.toDataURL(qr); // langsung simpan base64
 });
 
 client.on('ready', () => {
     console.log('✅ WhatsApp Web siap digunakan!');
+    qrBase64 = null; // reset QR saat sudah login
 });
 
 client.on('authenticated', () => {
-    console.log('🔒 Berhasil terautentikasi.');
+    console.log('🔒 Autentikasi berhasil.');
 });
 
 client.on('auth_failure', (msg) => {
@@ -58,38 +60,29 @@ app.post('/kirim', async (req, res) => {
     const { nomor, pesan } = req.body;
 
     if (!nomor || !pesan) {
-        return res.status(400).send('Nomor dan pesan wajib diisi.');
+        return res.status(400).json({ error: 'Nomor dan pesan wajib diisi.' });
     }
 
     const formatNomor = nomor.includes('@c.us') ? nomor : `${nomor}@c.us`;
 
     try {
         await client.sendMessage(formatNomor, pesan);
-        res.send('✅ Pesan berhasil dikirim!');
+        res.json({ success: true, message: 'Pesan berhasil dikirim.' });
     } catch (err) {
-        console.error('❌ Gagal kirim pesan:', err);
-        res.status(500).send('Gagal mengirim pesan.');
+        console.error('❌ Gagal kirim:', err);
+        res.status(500).json({ error: 'Gagal mengirim pesan.' });
     }
 });
 
-// Endpoint tampilkan QR Code
-app.get('/qr', async (req, res) => {
-    const qrPath = path.join(__dirname, 'qr.png');
-
-    try {
-        await fs.access(qrPath); // pastikan file tersedia
-        const file = await fs.readFile(qrPath);
-        const base64Image = file.toString('base64');
-        const dataUrl = `data:image/png;base64,${base64Image}`;
-
-        res.send(`<img src="${dataUrl}" alt="QR Code WhatsApp" width="250" />`);
-    } catch (error) {
-        console.error('⚠️ QR belum tersedia:', error);
-        res.status(404).send('QR belum tersedia, silakan tunggu atau refresh halaman.');
+// Endpoint ambil QR Code base64
+app.get('/qr', (req, res) => {
+    if (!qrBase64) {
+        return res.status(404).json({ error: 'QR belum tersedia.' });
     }
+
+    res.json({ qr: qrBase64 });
 });
 
-// Jalankan server Express
 app.listen(port, '0.0.0.0', () => {
-    console.log(`🚀 Server WhatsApp bot aktif di http://0.0.0.0:${port}`);
+    console.log(`🚀 Server WhatsApp aktif di http://0.0.0.0:${port}`);
 });
