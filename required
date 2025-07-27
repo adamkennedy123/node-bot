@@ -172,3 +172,30 @@ th {
   margin-top: 20px;
 }
 
+
+
+ <div class="chart-wrapper" style="display: flex; gap: 40px; justify-content: center; align-items: stretch; flex-wrap: wrap; padding: 20px;">
+  <!-- Bar Chart -->
+  <div style="flex: 1; min-width: 300px; max-width: 600px; height: 450px; background-color: #ffffff; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center;">
+    <canvas id="grafikGabungan" width="300" height="500" style="max-width: 100%; max-height: 450px;"></canvas>
+  </div>
+
+  <!-- Donut Chart -->
+  <div style="flex: 1; min-width: 300px; max-width: 600px; height: 450px; background-color: #ffffff; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center;">
+    <canvas id="donutChart" width="400" height="400" style="max-width: 100%; max-height: 450px;"></canvas>
+  </div>
+</div>
+
+
+ <div class="chart-wrapper" style="display: flex; gap: 40px; justify-content: center; align-items: stretch; flex-wrap: wrap; padding: 20px;">
+  <!-- Bar Chart -->
+  <div style="flex: 1; min-width: 300px; max-width: 600px; height: 450px; background-color: #ffffff; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center;">
+    <canvas id="grafikIbu" width="300" height="500" style="max-width: 100%; max-height: 450px;"></canvas>
+  </div>
+  
+  <!-- Donut Chart -->
+  <div style="flex: 1; min-width: 300px; max-width: 600px; height: 450px; background-color: #ffffff; padding: 20px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); display: flex; align-items: center; justify-content: center;">
+    <canvas id="donutChart" width="400" height="400" style="max-width: 100%; max-height: 450px;"></canvas>
+  </div>
+</div>
+
