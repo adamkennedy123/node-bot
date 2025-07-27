@@ -1,80 +1,10 @@
-<!DOCTYPE html>
-<html lang="id">
+document.addEventListener('DOMContentLoaded', function () {
+  const togglePassword = document.getElementById('toggle-password'); 
+  const passwordInput = document.getElementById('password');
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login | Posyandu</title>
-  <link rel="stylesheet" href="{{ asset('Template/form/login-style.css') }}" />
-  <link rel="stylesheet" href="{{ asset('Template/alert.css') }}" />
-  <link rel="icon" href="{{ asset('Template/Images/logo-posyandu.png') }}" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-</head>
-
-<body>
-  <div class="container">
-    <div class="left">
-      <img src="{{ asset('Template/Images/logo-posyandu.png') }}" alt="Ilustrasi Posyandu" class="illustration" />
-      <h2>Welcome To Posyandu</h2>
-    </div>
-    <div class="right">
-      <h2>Login</h2>
-
-      @if ($errors->any())
-      <div class="modal-overlay">
-      <div class="custom-modal">
-        <div class="modal-icon">
-        <svg viewBox="0 0 100 100" width="80" height="80">
-          <circle cx="50" cy="50" r="45" stroke="#f66" stroke-width="5" fill="none" />
-          <line x1="35" y1="35" x2="65" y2="65" stroke="#f66" stroke-width="6" />
-          <line x1="65" y1="35" x2="35" y2="65" stroke="#f66" stroke-width="6" />
-        </svg>
-        </div>
-        <h2 class="modal-title">Email atau kata sandi salah</h2>
-        <p class="modal-message">{{ $errors->first() }}</p>
-        <button onclick="document.querySelector('.modal-overlay').style.display='none'"
-        class="modal-button">OK</button>
-      </div>
-      </div>
-    @endif
-
-      <form class="login-form" method="POST" action="{{ route('login.submit') }}">
-        @csrf
-
-        <label>Email</label>
-        <input type="email" name="email" placeholder="Email" required>
-
-        <label>Password</label>
-        <div class="password-wrapper">
-          <input type="password" name="kata_sandi" placeholder="Password" id="password" required>
-          <i class="fa-solid fa-eye" id="toggle-password" style="cursor: pointer;"></i>
-        </div>
-
-        <div class="remember">
-          <input type="checkbox" id="remember" name="remember" />
-          <label for="remember">Remember Me</label>
-        </div>
-
-        <button type="submit" class="btn-login">Masuk</button>
-      </form>
-
-      <p class="contact-info">
-        Ada masalah? Hubungi <br>
-        <a href="mailto:posyandualkasia13@gmail.com">posyandualkasia13@gmail.com</a>
-      </p>
-    </div>
-  </div>
-  <script src="{{ asset('Template/form/js/enter-login.js') }}"></script>
-  <script src="{{ asset('Template/form/js/remember-me.js') }}"></script>
-  <script src="{{ asset('Template/form/js/toggle-password.js') }}"></script>
-  <script>
-    setTimeout(() => {
-      const box = document.getElementById('errorBox');
-      if (box) box.style.display = 'none';
-    }, 5000);
-  </script>
-
-</body>
-
-</html>
+  togglePassword.addEventListener('click', function () {
+    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+    passwordInput.setAttribute('type', type);
+    this.classList.toggle('showing'); 
+  });
+});
