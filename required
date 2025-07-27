@@ -1,10 +1,150 @@
-document.addEventListener('DOMContentLoaded', function () {
-  const togglePassword = document.getElementById('toggle-password'); // pakai ID di sini
-  const passwordInput = document.getElementById('password');
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #fdf6fd;
+  margin: 0;
+  padding: 0;
+}
 
-  togglePassword.addEventListener('click', function () {
-    const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-    passwordInput.setAttribute('type', type);
-    this.classList.toggle('showing'); 
-  });
-});
+.container {
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  gap: 60px;
+  flex-wrap: wrap;
+}
+
+/* Kolom kiri */
+.left {
+  flex: 1;
+  min-width: 300px;
+  text-align: center;
+}
+
+.left .illustration {
+  max-width: 320px;
+  margin-bottom: 20px;
+}
+
+.left h2 {
+  color: #0ea5e9;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.right {
+  flex: 1;
+  min-width: 300px;
+  max-width: 400px;
+}
+
+.right h2 {
+  font-size: 26px;
+  margin-bottom: 20px;
+  font-weight: 700;
+}
+
+/* Form */
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form label {
+  margin: 10px 0 5px;
+  font-weight: 500;
+}
+
+.login-form input[type="email"],
+.login-form input[type="password"] {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.password-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.password-wrapper input {
+  width: 100%;
+  padding: 10px 40px 10px 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  line-height: 1.4;
+}
+
+
+.password-wrapper i {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+  color: #888;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.password-wrapper i:hover {
+  color: #000;
+}
+
+
+/* Remember Me */
+.remember {
+  margin: 15px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.remember input[type="checkbox"] {
+  transform: translateY(3px); 
+  border-bottom: 1px;
+}
+
+
+.btn-login {
+  background-color: #0ea5e9;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.2s;
+}
+
+.btn-login:hover {
+  background-color: #0284c7;
+}
+
+.contact-info {
+  margin-top: 20px;
+  font-size: 13px;
+  color: #333;
+  line-height: 1.4;
+  text-align: center;
+}
+
+.contact-info a {
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 500;
+}
+
